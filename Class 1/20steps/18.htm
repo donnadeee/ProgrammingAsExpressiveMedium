@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+		<style type="text/css">
+			.can {
+				/* A style for the canvas. */
+				border:1px solid #000000; /* Canvas border is solid black */
+				background-color:#0000ff; /* Canvas color is blue */
+				width:500px; /* Canvas width is 500 pixels */
+				height:400px; /* Canvas height is 400 pixels */
+				position:absolute; /* See http://w3schools.com/cssref/pr_class_position.asp */
+				top:100px; /* Top of canvas is 100 pixels from top of browser */
+				left:100px; /* Left side of canvas 100 pixels from left side of browser. */
+			}
+    </style>
+    
+  </head>
+  
+  <body>
+    <canvas id="c" class="can"  width="500" height="400">
+      Your browser does not support the HTML5 canvas tag.
+    </canvas>
+    
+    <script>
+			// JavaScript goes here at the end of the body.
+			var ca=document.getElementById("c");
+			// The above line gets a handle on the canvas element with Id "c".
+			var ctx=ca.getContext("2d");
+			// This gives us a 2d 'context' in which to draw into this canvas.
+			ctx.lineWidth=3;
+			var m={oldX:null, oldY:null};
+			// m is an object. It holds the old mouse coordinates.
+			
+			ca.onmousemove = function(e) {
+				// When the mouse moves over the canvas, this function executes.
+				// It figures out the mouse coordinates, draws a line, and stores
+				// the old mouse coordinates.
+				var xCoor = e.clientX - 100;
+				var yCoor = e.clientY - 100;
+				console.log(xCoor + ', ' + yCoor);
+				drawLine(xCoor,yCoor);
+				m.oldX=xCoor;
+				m.oldY=yCoor;
+			}
+			
+			function drawLine(x,y) {
+				// Draws a line from (m.oldX, m.oldY) to (x,y).
+				if (m.oldX != null) {
+					ctx.beginPath();
+					ctx.moveTo(m.oldX, m.oldY);
+					ctx.lineTo(x,y);
+					ctx.stroke();
+				}
+			}
+			
+			ca.onmouseout = function(e) {
+				// This function runs when the mouse leaves the canvas.
+				m.oldX = null;
+
+			}
+			
+		</script>
+    
+  </body>
+</html>
